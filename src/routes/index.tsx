@@ -4,8 +4,6 @@ import { CreatorCard } from "@/components/CreatorCard";
 import { mockCreators } from "@/lib/mock-data";
 import { Heart, Shield, Smartphone, ArrowRight, Users, Zap, CreditCard } from "lucide-react";
 import heroPattern from "@/assets/hero-pattern.jpg";
-import { mockCreators } from "@/lib/mock-data";
-import { Heart, Shield, Smartphone, ArrowRight, Users, Zap, CreditCard } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
