@@ -22,6 +22,7 @@ function HomePage() {
     <div>
       {/* Hero */}
       <section className="gradient-hero relative overflow-hidden">
+        <img src={heroPattern} alt="" className="absolute inset-0 h-full w-full object-cover opacity-10 mix-blend-overlay" width={1920} height={1080} />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.75_0.12_85/0.15),transparent_70%)]" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:py-36 lg:px-8">
           <div className="max-w-2xl">
