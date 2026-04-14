@@ -13,6 +13,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardDonorRouteImport } from './routes/dashboard.donor'
 import { Route as DashboardCreatorRouteImport } from './routes/dashboard.creator'
@@ -45,20 +46,25 @@ const DiscoverRoute = DiscoverRouteImport.update({
   path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardDonorRoute = DashboardDonorRouteImport.update({
-  id: '/dashboard/donor',
-  path: '/dashboard/donor',
-  getParentRoute: () => rootRouteImport,
+  id: '/donor',
+  path: '/donor',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardCreatorRoute = DashboardCreatorRouteImport.update({
-  id: '/dashboard/creator',
-  path: '/dashboard/creator',
-  getParentRoute: () => rootRouteImport,
+  id: '/creator',
+  path: '/creator',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const CreatorCreatorIdRoute = CreatorCreatorIdRouteImport.update({
   id: '/creator/$creatorId',
@@ -106,6 +112,7 @@ const DashboardCreatorEarningsRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
@@ -139,6 +147,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/dashboard'
     | '/discover'
     | '/how-it-works'
     | '/login'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dashboard'
     | '/discover'
     | '/how-it-works'
     | '/login'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/dashboard'
     | '/discover'
     | '/how-it-works'
     | '/login'
@@ -208,13 +220,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   DiscoverRoute: typeof DiscoverRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   CreatorCreatorIdRoute: typeof CreatorCreatorIdRoute
-  DashboardCreatorRoute: typeof DashboardCreatorRouteWithChildren
-  DashboardDonorRoute: typeof DashboardDonorRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -247,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -256,17 +274,17 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard/donor': {
       id: '/dashboard/donor'
-      path: '/dashboard/donor'
+      path: '/donor'
       fullPath: '/dashboard/donor'
       preLoaderRoute: typeof DashboardDonorRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/dashboard/creator': {
       id: '/dashboard/creator'
-      path: '/dashboard/creator'
+      path: '/creator'
       fullPath: '/dashboard/creator'
       preLoaderRoute: typeof DashboardCreatorRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/creator/$creatorId': {
       id: '/creator/$creatorId'
@@ -360,15 +378,28 @@ const DashboardDonorRouteWithChildren = DashboardDonorRoute._addFileChildren(
   DashboardDonorRouteChildren,
 )
 
+interface DashboardRouteChildren {
+  DashboardCreatorRoute: typeof DashboardCreatorRouteWithChildren
+  DashboardDonorRoute: typeof DashboardDonorRouteWithChildren
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardCreatorRoute: DashboardCreatorRouteWithChildren,
+  DashboardDonorRoute: DashboardDonorRouteWithChildren,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   DiscoverRoute: DiscoverRoute,
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   CreatorCreatorIdRoute: CreatorCreatorIdRoute,
-  DashboardCreatorRoute: DashboardCreatorRouteWithChildren,
-  DashboardDonorRoute: DashboardDonorRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
