@@ -14,9 +14,13 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardDonorRouteImport } from './routes/dashboard.donor'
 import { Route as DashboardCreatorRouteImport } from './routes/dashboard.creator'
 import { Route as CreatorCreatorIdRouteImport } from './routes/creator.$creatorId'
+import { Route as DashboardDonorIndexRouteImport } from './routes/dashboard.donor.index'
 import { Route as DashboardCreatorIndexRouteImport } from './routes/dashboard.creator.index'
+import { Route as DashboardDonorSettingsRouteImport } from './routes/dashboard.donor.settings'
+import { Route as DashboardDonorDonationsRouteImport } from './routes/dashboard.donor.donations'
 import { Route as DashboardCreatorSupportersRouteImport } from './routes/dashboard.creator.supporters'
 import { Route as DashboardCreatorSettingsRouteImport } from './routes/dashboard.creator.settings'
 import { Route as DashboardCreatorEarningsRouteImport } from './routes/dashboard.creator.earnings'
@@ -46,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardDonorRoute = DashboardDonorRouteImport.update({
+  id: '/dashboard/donor',
+  path: '/dashboard/donor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardCreatorRoute = DashboardCreatorRouteImport.update({
   id: '/dashboard/creator',
   path: '/dashboard/creator',
@@ -56,10 +65,25 @@ const CreatorCreatorIdRoute = CreatorCreatorIdRouteImport.update({
   path: '/creator/$creatorId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardDonorIndexRoute = DashboardDonorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardDonorRoute,
+} as any)
 const DashboardCreatorIndexRoute = DashboardCreatorIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardCreatorRoute,
+} as any)
+const DashboardDonorSettingsRoute = DashboardDonorSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardDonorRoute,
+} as any)
+const DashboardDonorDonationsRoute = DashboardDonorDonationsRouteImport.update({
+  id: '/donations',
+  path: '/donations',
+  getParentRoute: () => DashboardDonorRoute,
 } as any)
 const DashboardCreatorSupportersRoute =
   DashboardCreatorSupportersRouteImport.update({
@@ -88,10 +112,14 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/creator/$creatorId': typeof CreatorCreatorIdRoute
   '/dashboard/creator': typeof DashboardCreatorRouteWithChildren
+  '/dashboard/donor': typeof DashboardDonorRouteWithChildren
   '/dashboard/creator/earnings': typeof DashboardCreatorEarningsRoute
   '/dashboard/creator/settings': typeof DashboardCreatorSettingsRoute
   '/dashboard/creator/supporters': typeof DashboardCreatorSupportersRoute
+  '/dashboard/donor/donations': typeof DashboardDonorDonationsRoute
+  '/dashboard/donor/settings': typeof DashboardDonorSettingsRoute
   '/dashboard/creator/': typeof DashboardCreatorIndexRoute
+  '/dashboard/donor/': typeof DashboardDonorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -103,7 +131,10 @@ export interface FileRoutesByTo {
   '/dashboard/creator/earnings': typeof DashboardCreatorEarningsRoute
   '/dashboard/creator/settings': typeof DashboardCreatorSettingsRoute
   '/dashboard/creator/supporters': typeof DashboardCreatorSupportersRoute
+  '/dashboard/donor/donations': typeof DashboardDonorDonationsRoute
+  '/dashboard/donor/settings': typeof DashboardDonorSettingsRoute
   '/dashboard/creator': typeof DashboardCreatorIndexRoute
+  '/dashboard/donor': typeof DashboardDonorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -114,10 +145,14 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/creator/$creatorId': typeof CreatorCreatorIdRoute
   '/dashboard/creator': typeof DashboardCreatorRouteWithChildren
+  '/dashboard/donor': typeof DashboardDonorRouteWithChildren
   '/dashboard/creator/earnings': typeof DashboardCreatorEarningsRoute
   '/dashboard/creator/settings': typeof DashboardCreatorSettingsRoute
   '/dashboard/creator/supporters': typeof DashboardCreatorSupportersRoute
+  '/dashboard/donor/donations': typeof DashboardDonorDonationsRoute
+  '/dashboard/donor/settings': typeof DashboardDonorSettingsRoute
   '/dashboard/creator/': typeof DashboardCreatorIndexRoute
+  '/dashboard/donor/': typeof DashboardDonorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,10 +164,14 @@ export interface FileRouteTypes {
     | '/register'
     | '/creator/$creatorId'
     | '/dashboard/creator'
+    | '/dashboard/donor'
     | '/dashboard/creator/earnings'
     | '/dashboard/creator/settings'
     | '/dashboard/creator/supporters'
+    | '/dashboard/donor/donations'
+    | '/dashboard/donor/settings'
     | '/dashboard/creator/'
+    | '/dashboard/donor/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,7 +183,10 @@ export interface FileRouteTypes {
     | '/dashboard/creator/earnings'
     | '/dashboard/creator/settings'
     | '/dashboard/creator/supporters'
+    | '/dashboard/donor/donations'
+    | '/dashboard/donor/settings'
     | '/dashboard/creator'
+    | '/dashboard/donor'
   id:
     | '__root__'
     | '/'
@@ -154,10 +196,14 @@ export interface FileRouteTypes {
     | '/register'
     | '/creator/$creatorId'
     | '/dashboard/creator'
+    | '/dashboard/donor'
     | '/dashboard/creator/earnings'
     | '/dashboard/creator/settings'
     | '/dashboard/creator/supporters'
+    | '/dashboard/donor/donations'
+    | '/dashboard/donor/settings'
     | '/dashboard/creator/'
+    | '/dashboard/donor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -168,6 +214,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   CreatorCreatorIdRoute: typeof CreatorCreatorIdRoute
   DashboardCreatorRoute: typeof DashboardCreatorRouteWithChildren
+  DashboardDonorRoute: typeof DashboardDonorRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -207,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/donor': {
+      id: '/dashboard/donor'
+      path: '/dashboard/donor'
+      fullPath: '/dashboard/donor'
+      preLoaderRoute: typeof DashboardDonorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/creator': {
       id: '/dashboard/creator'
       path: '/dashboard/creator'
@@ -221,12 +275,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorCreatorIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/donor/': {
+      id: '/dashboard/donor/'
+      path: '/'
+      fullPath: '/dashboard/donor/'
+      preLoaderRoute: typeof DashboardDonorIndexRouteImport
+      parentRoute: typeof DashboardDonorRoute
+    }
     '/dashboard/creator/': {
       id: '/dashboard/creator/'
       path: '/'
       fullPath: '/dashboard/creator/'
       preLoaderRoute: typeof DashboardCreatorIndexRouteImport
       parentRoute: typeof DashboardCreatorRoute
+    }
+    '/dashboard/donor/settings': {
+      id: '/dashboard/donor/settings'
+      path: '/settings'
+      fullPath: '/dashboard/donor/settings'
+      preLoaderRoute: typeof DashboardDonorSettingsRouteImport
+      parentRoute: typeof DashboardDonorRoute
+    }
+    '/dashboard/donor/donations': {
+      id: '/dashboard/donor/donations'
+      path: '/donations'
+      fullPath: '/dashboard/donor/donations'
+      preLoaderRoute: typeof DashboardDonorDonationsRouteImport
+      parentRoute: typeof DashboardDonorRoute
     }
     '/dashboard/creator/supporters': {
       id: '/dashboard/creator/supporters'
@@ -269,6 +344,22 @@ const DashboardCreatorRouteChildren: DashboardCreatorRouteChildren = {
 const DashboardCreatorRouteWithChildren =
   DashboardCreatorRoute._addFileChildren(DashboardCreatorRouteChildren)
 
+interface DashboardDonorRouteChildren {
+  DashboardDonorDonationsRoute: typeof DashboardDonorDonationsRoute
+  DashboardDonorSettingsRoute: typeof DashboardDonorSettingsRoute
+  DashboardDonorIndexRoute: typeof DashboardDonorIndexRoute
+}
+
+const DashboardDonorRouteChildren: DashboardDonorRouteChildren = {
+  DashboardDonorDonationsRoute: DashboardDonorDonationsRoute,
+  DashboardDonorSettingsRoute: DashboardDonorSettingsRoute,
+  DashboardDonorIndexRoute: DashboardDonorIndexRoute,
+}
+
+const DashboardDonorRouteWithChildren = DashboardDonorRoute._addFileChildren(
+  DashboardDonorRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DiscoverRoute: DiscoverRoute,
@@ -277,6 +368,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   CreatorCreatorIdRoute: CreatorCreatorIdRoute,
   DashboardCreatorRoute: DashboardCreatorRouteWithChildren,
+  DashboardDonorRoute: DashboardDonorRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
