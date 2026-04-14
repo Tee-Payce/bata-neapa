@@ -9,38 +9,262 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardDonorRouteImport } from './routes/dashboard.donor'
+import { Route as DashboardCreatorRouteImport } from './routes/dashboard.creator'
+import { Route as CreatorCreatorIdRouteImport } from './routes/creator.$creatorId'
+import { Route as DashboardDonorIndexRouteImport } from './routes/dashboard.donor.index'
+import { Route as DashboardCreatorIndexRouteImport } from './routes/dashboard.creator.index'
+import { Route as DashboardDonorSettingsRouteImport } from './routes/dashboard.donor.settings'
+import { Route as DashboardDonorDonationsRouteImport } from './routes/dashboard.donor.donations'
+import { Route as DashboardCreatorSupportersRouteImport } from './routes/dashboard.creator.supporters'
+import { Route as DashboardCreatorSettingsRouteImport } from './routes/dashboard.creator.settings'
+import { Route as DashboardCreatorEarningsRouteImport } from './routes/dashboard.creator.earnings'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardDonorRoute = DashboardDonorRouteImport.update({
+  id: '/donor',
+  path: '/donor',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCreatorRoute = DashboardCreatorRouteImport.update({
+  id: '/creator',
+  path: '/creator',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const CreatorCreatorIdRoute = CreatorCreatorIdRouteImport.update({
+  id: '/creator/$creatorId',
+  path: '/creator/$creatorId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardDonorIndexRoute = DashboardDonorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardDonorRoute,
+} as any)
+const DashboardCreatorIndexRoute = DashboardCreatorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardCreatorRoute,
+} as any)
+const DashboardDonorSettingsRoute = DashboardDonorSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardDonorRoute,
+} as any)
+const DashboardDonorDonationsRoute = DashboardDonorDonationsRouteImport.update({
+  id: '/donations',
+  path: '/donations',
+  getParentRoute: () => DashboardDonorRoute,
+} as any)
+const DashboardCreatorSupportersRoute =
+  DashboardCreatorSupportersRouteImport.update({
+    id: '/supporters',
+    path: '/supporters',
+    getParentRoute: () => DashboardCreatorRoute,
+  } as any)
+const DashboardCreatorSettingsRoute =
+  DashboardCreatorSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => DashboardCreatorRoute,
+  } as any)
+const DashboardCreatorEarningsRoute =
+  DashboardCreatorEarningsRouteImport.update({
+    id: '/earnings',
+    path: '/earnings',
+    getParentRoute: () => DashboardCreatorRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/discover': typeof DiscoverRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/creator/$creatorId': typeof CreatorCreatorIdRoute
+  '/dashboard/creator': typeof DashboardCreatorRouteWithChildren
+  '/dashboard/donor': typeof DashboardDonorRouteWithChildren
+  '/dashboard/creator/earnings': typeof DashboardCreatorEarningsRoute
+  '/dashboard/creator/settings': typeof DashboardCreatorSettingsRoute
+  '/dashboard/creator/supporters': typeof DashboardCreatorSupportersRoute
+  '/dashboard/donor/donations': typeof DashboardDonorDonationsRoute
+  '/dashboard/donor/settings': typeof DashboardDonorSettingsRoute
+  '/dashboard/creator/': typeof DashboardCreatorIndexRoute
+  '/dashboard/donor/': typeof DashboardDonorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/discover': typeof DiscoverRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/creator/$creatorId': typeof CreatorCreatorIdRoute
+  '/dashboard/creator/earnings': typeof DashboardCreatorEarningsRoute
+  '/dashboard/creator/settings': typeof DashboardCreatorSettingsRoute
+  '/dashboard/creator/supporters': typeof DashboardCreatorSupportersRoute
+  '/dashboard/donor/donations': typeof DashboardDonorDonationsRoute
+  '/dashboard/donor/settings': typeof DashboardDonorSettingsRoute
+  '/dashboard/creator': typeof DashboardCreatorIndexRoute
+  '/dashboard/donor': typeof DashboardDonorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/discover': typeof DiscoverRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/creator/$creatorId': typeof CreatorCreatorIdRoute
+  '/dashboard/creator': typeof DashboardCreatorRouteWithChildren
+  '/dashboard/donor': typeof DashboardDonorRouteWithChildren
+  '/dashboard/creator/earnings': typeof DashboardCreatorEarningsRoute
+  '/dashboard/creator/settings': typeof DashboardCreatorSettingsRoute
+  '/dashboard/creator/supporters': typeof DashboardCreatorSupportersRoute
+  '/dashboard/donor/donations': typeof DashboardDonorDonationsRoute
+  '/dashboard/donor/settings': typeof DashboardDonorSettingsRoute
+  '/dashboard/creator/': typeof DashboardCreatorIndexRoute
+  '/dashboard/donor/': typeof DashboardDonorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/discover'
+    | '/how-it-works'
+    | '/login'
+    | '/register'
+    | '/creator/$creatorId'
+    | '/dashboard/creator'
+    | '/dashboard/donor'
+    | '/dashboard/creator/earnings'
+    | '/dashboard/creator/settings'
+    | '/dashboard/creator/supporters'
+    | '/dashboard/donor/donations'
+    | '/dashboard/donor/settings'
+    | '/dashboard/creator/'
+    | '/dashboard/donor/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/discover'
+    | '/how-it-works'
+    | '/login'
+    | '/register'
+    | '/creator/$creatorId'
+    | '/dashboard/creator/earnings'
+    | '/dashboard/creator/settings'
+    | '/dashboard/creator/supporters'
+    | '/dashboard/donor/donations'
+    | '/dashboard/donor/settings'
+    | '/dashboard/creator'
+    | '/dashboard/donor'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/discover'
+    | '/how-it-works'
+    | '/login'
+    | '/register'
+    | '/creator/$creatorId'
+    | '/dashboard/creator'
+    | '/dashboard/donor'
+    | '/dashboard/creator/earnings'
+    | '/dashboard/creator/settings'
+    | '/dashboard/creator/supporters'
+    | '/dashboard/donor/donations'
+    | '/dashboard/donor/settings'
+    | '/dashboard/creator/'
+    | '/dashboard/donor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  DiscoverRoute: typeof DiscoverRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  CreatorCreatorIdRoute: typeof CreatorCreatorIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +272,134 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/donor': {
+      id: '/dashboard/donor'
+      path: '/donor'
+      fullPath: '/dashboard/donor'
+      preLoaderRoute: typeof DashboardDonorRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/creator': {
+      id: '/dashboard/creator'
+      path: '/creator'
+      fullPath: '/dashboard/creator'
+      preLoaderRoute: typeof DashboardCreatorRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/creator/$creatorId': {
+      id: '/creator/$creatorId'
+      path: '/creator/$creatorId'
+      fullPath: '/creator/$creatorId'
+      preLoaderRoute: typeof CreatorCreatorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/donor/': {
+      id: '/dashboard/donor/'
+      path: '/'
+      fullPath: '/dashboard/donor/'
+      preLoaderRoute: typeof DashboardDonorIndexRouteImport
+      parentRoute: typeof DashboardDonorRoute
+    }
+    '/dashboard/creator/': {
+      id: '/dashboard/creator/'
+      path: '/'
+      fullPath: '/dashboard/creator/'
+      preLoaderRoute: typeof DashboardCreatorIndexRouteImport
+      parentRoute: typeof DashboardCreatorRoute
+    }
+    '/dashboard/donor/settings': {
+      id: '/dashboard/donor/settings'
+      path: '/settings'
+      fullPath: '/dashboard/donor/settings'
+      preLoaderRoute: typeof DashboardDonorSettingsRouteImport
+      parentRoute: typeof DashboardDonorRoute
+    }
+    '/dashboard/donor/donations': {
+      id: '/dashboard/donor/donations'
+      path: '/donations'
+      fullPath: '/dashboard/donor/donations'
+      preLoaderRoute: typeof DashboardDonorDonationsRouteImport
+      parentRoute: typeof DashboardDonorRoute
+    }
+    '/dashboard/creator/supporters': {
+      id: '/dashboard/creator/supporters'
+      path: '/supporters'
+      fullPath: '/dashboard/creator/supporters'
+      preLoaderRoute: typeof DashboardCreatorSupportersRouteImport
+      parentRoute: typeof DashboardCreatorRoute
+    }
+    '/dashboard/creator/settings': {
+      id: '/dashboard/creator/settings'
+      path: '/settings'
+      fullPath: '/dashboard/creator/settings'
+      preLoaderRoute: typeof DashboardCreatorSettingsRouteImport
+      parentRoute: typeof DashboardCreatorRoute
+    }
+    '/dashboard/creator/earnings': {
+      id: '/dashboard/creator/earnings'
+      path: '/earnings'
+      fullPath: '/dashboard/creator/earnings'
+      preLoaderRoute: typeof DashboardCreatorEarningsRouteImport
+      parentRoute: typeof DashboardCreatorRoute
+    }
   }
 }
 
+interface DashboardCreatorRouteChildren {
+  DashboardCreatorEarningsRoute: typeof DashboardCreatorEarningsRoute
+  DashboardCreatorSettingsRoute: typeof DashboardCreatorSettingsRoute
+  DashboardCreatorSupportersRoute: typeof DashboardCreatorSupportersRoute
+  DashboardCreatorIndexRoute: typeof DashboardCreatorIndexRoute
+}
+
+const DashboardCreatorRouteChildren: DashboardCreatorRouteChildren = {
+  DashboardCreatorEarningsRoute: DashboardCreatorEarningsRoute,
+  DashboardCreatorSettingsRoute: DashboardCreatorSettingsRoute,
+  DashboardCreatorSupportersRoute: DashboardCreatorSupportersRoute,
+  DashboardCreatorIndexRoute: DashboardCreatorIndexRoute,
+}
+
+const DashboardCreatorRouteWithChildren =
+  DashboardCreatorRoute._addFileChildren(DashboardCreatorRouteChildren)
+
+interface DashboardDonorRouteChildren {
+  DashboardDonorDonationsRoute: typeof DashboardDonorDonationsRoute
+  DashboardDonorSettingsRoute: typeof DashboardDonorSettingsRoute
+  DashboardDonorIndexRoute: typeof DashboardDonorIndexRoute
+}
+
+const DashboardDonorRouteChildren: DashboardDonorRouteChildren = {
+  DashboardDonorDonationsRoute: DashboardDonorDonationsRoute,
+  DashboardDonorSettingsRoute: DashboardDonorSettingsRoute,
+  DashboardDonorIndexRoute: DashboardDonorIndexRoute,
+}
+
+const DashboardDonorRouteWithChildren = DashboardDonorRoute._addFileChildren(
+  DashboardDonorRouteChildren,
+)
+
+interface DashboardRouteChildren {
+  DashboardCreatorRoute: typeof DashboardCreatorRouteWithChildren
+  DashboardDonorRoute: typeof DashboardDonorRouteWithChildren
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardCreatorRoute: DashboardCreatorRouteWithChildren,
+  DashboardDonorRoute: DashboardDonorRouteWithChildren,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  DiscoverRoute: DiscoverRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  CreatorCreatorIdRoute: CreatorCreatorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
